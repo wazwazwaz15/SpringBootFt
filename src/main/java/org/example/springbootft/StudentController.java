@@ -1,19 +1,56 @@
 package org.example.springbootft;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class StudentController {
 
+
+    @Autowired
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
     @PostMapping("/students")
-    public String create(@RequestBody Student student) {
+    public String create(@RequestBody List<Student> student) {
+        String new_line = System.getProperty("line.separator");
+        StringBuilder sql = new StringBuilder();
+        sql.append("INSERT INTO twn.student (id,name) ").append(new_line);
+        sql.append("VALUES (:id,:name)");
+
+        List<Map<String, Object>> list = new ArrayList<>();
+
         String result = "";
         System.out.println("準備新增資料...............");
         if (student != null) {
-            System.out.println("名稱:" + student.getName());
-            System.out.println("學生碼:" + student.getId());
-            result = "執行資料庫的Create 操作............執行成功!";
+            int count = 0;
+            for (Student bean : student) {
+                Map<String, Object> map = new HashMap<>();
+                System.out.println("名稱:" + bean.getName());
+                System.out.println("學生碼:" + bean.getId());
+                map.put("id", bean.getId());
+                map.put("name", bean.getName());
+                list.add(map);
+                if (list.size() == 10) {
+                    namedParameterJdbcTemplate.batchUpdate(sql.toString(), list.toArray(new Map[0]));
+                }
+                count++;
+            }
+            if(list.size()>0){
+                namedParameterJdbcTemplate.batchUpdate(sql.toString(), list.toArray(new Map[0]));
+            }
+            System.out.println("總筆數為"+count);
+
+                result = "新增資料............執行成功!";
+
+
+
         } else {
             result = "並未收到任何資料請重新輸入";
         }

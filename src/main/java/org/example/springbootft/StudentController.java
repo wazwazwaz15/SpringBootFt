@@ -1,6 +1,8 @@
 package org.example.springbootft;
 
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +14,7 @@ import java.util.Map;
 
 @RestController
 public class StudentController {
-
+ static Logger logger = Logger.getLogger("IMPORT");
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -62,7 +64,6 @@ public class StudentController {
         String result = "";
         System.out.println("準備查詢資料...............");
         if (id == 2023031301) {
-
             result = "執行資料庫的read 操作............執行成功!";
         } else {
             result = "這位學生並不存在......";
@@ -81,6 +82,7 @@ public class StudentController {
             System.out.println("更新成功!");
             System.out.println("更名為" + student.getName());
             result = "執行資料庫的put 操作............執行成功!";
+
         } else {
             result = "這位學生並不存在......";
         }

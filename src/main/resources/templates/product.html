@@ -5,6 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-<h1 th:text="${hello}"></h1>
+<h1 th:text="Apple"></h1>
+  <form action="/apple2" method="post" th:object="${phone}">
+      <label>編號:<input type="text" th:field="*{id}"></label>
+      <label>顏色:<input type="text" th:field="*{color}"></label>
+      <label>價格:<input type="text" th:field="*{price}"></label>
+
+  </form>
+
+
+
 </body>
 </html>

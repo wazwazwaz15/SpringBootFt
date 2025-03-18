@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新增遊戲</title>
+</head>
+<body>
+
+<form action="/game" method="post" th:object="${game}">
+    <input type="text" th:field="*{game_serial}" placeholder="序號" required><br>
+    <input type="text" th:field="*{name}" placeholder="遊戲名稱" required><br>
+    <input type="text" th:field="*{version}" placeholder="版本" required><br>
+    <input type="text" th:field="*{type}" placeholder="種類" required><br>
+    <input type="number" th:field="*{price}" placeholder="價格" required><br>
+<!--    <input type="datetime-local" th:field="*{publish_date}" required><br>-->
+    <button type="submit">註冊</button>
+</form>
+
+
+</body>
+</html>

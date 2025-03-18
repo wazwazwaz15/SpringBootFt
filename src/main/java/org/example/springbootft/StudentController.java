@@ -3,6 +3,7 @@ package org.example.springbootft;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -92,6 +93,10 @@ public class StudentController {
 
     @DeleteMapping("/students/{id}")
     public String delete(@PathVariable Integer id) {
+
+
+
+
         String result = "";
         System.out.println("準備查詢資料...............");
         if (id == 2023031301) {
